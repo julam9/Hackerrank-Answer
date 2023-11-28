@@ -94,20 +94,26 @@ def jumpingOnClouds(c):
     #index and step definition
     i=0
     step=0
+    n=len(c)
     #looping while the position is not on finish yet
-    while i < len(c) - 1 :
-        #check if next cloud is 1
-        if c[i+1] == 1 :
-            #if yes, then the next two clouds must be 0
-            i=i+2
-        #check if next cloud is 0
-        elif c[i+1] == 0 :
-            #check if next two coluds is the finish
-            if i+2<len(c)-1 and c[i+2]==0:
-                i=i+2
-            else : i=i+1
-        step = step + 1
+    while i < n-1 :
+        #check if next two clouds not passing finish cloud and next two clouds is 0 (safe)
+        if i + 2 < n - 1 and c[i+2] == 0:
+            #add index and step
+            i = i + 2
+            step = step + 1
+        #check if next two clouds not passing finish cloud and next two clouds is 1 (not safe)
+        elif i + 2 < n - 1 and c[i+2] == 1:
+            #add index and step
+            i = i + 1
+            step = step + 1
+        #if two conditions above not met
+        else :
+            i = i + 2 
+            step = step + 1
     return step
+#testing
+jumpingOnClouds([0,0,0,0,1,0])
 
 ##Divisible Sum Pairs
 # Objective : Find i,j from intager array where i < j and i+j is divisible by integer k
@@ -266,4 +272,69 @@ def migratoryBirds(arr):
             n=arr.count(el)
         #answer equal to element whose freq is the max freq
             answer=el         
-    return answer   
+    return answer    
+
+##List Comprehensions
+# Objective : Input three integers. Make all combinations of elements from range 0 to three integers and the sum is not equal to n 
+if __name__ == '__main__':
+    x = int(input())
+    y = int(input())
+    z = int(input())
+    n = int(input()) 
+       
+    #list comprehension to make a list
+    a1 = [[i, j, k] for i in range(x+1) for j in range(y+1) for k in range(z+1)]
+    #filter the list to desired condition
+    a2 = [el for el in a1 if sum(el) != n]
+    print(a2)
+    
+##Nested Lists
+# Objective : Given students and their grades, find students whose grade is second lowest
+# Condition : If there are more than 1 student, print alphabetically
+if __name__ == '__main__':
+    #array to placing name and score
+    a1=[]
+    a2=[]
+    for _ in range(int(input())):
+        name = input()
+        score = float(input())
+        a1.append([name, score])
+        a2.append(score)
+    #find second lowest grade (after sorted in set (disctinct) way, second lowest is on index 1)        
+    ans = sorted(list(set(a2)))[1]  
+    for i,j in sorted(a1):
+        if j == ans:
+            print(i)
+
+##Between Two Sets 
+# Objective : Given two array integers, determine number of integers that satisfy conditions
+# Conditions :
+# The elements of the first array are all factors of the integer being considered
+# The integer being considered is a factor of all elements of the second array
+def getTotalX(a, b):
+    a1 = 0
+    #loopint through max of first array and minimum of second array (inclusive)
+    #Why?
+    #Because max first array and min second array is the range of value that could satisfy the conditions
+    for i in range(max(a), min(b)+1):
+        if all(i % el == 0 for el in a) and all(el % i == 0 for el in b):
+            a1 = a1 + 1
+    return a1
+#testing
+getTotalX([2,4], [16,32,96])
+
+##Finding the Percentage
+# Objective : Given the student's name and their scores, find the average of scores based on stundet's name input
+# Condition : Result in format of 2 decimal places
+if __name__ == '__main__':
+    n = int(input())
+    student_marks = {}
+    for _ in range(n):
+        name, *line = input().split()
+        scores = list(map(float, line))
+        student_marks[name] = scores
+    query_name = input()
+    a1 = {n:s for (n,s) in student_marks.items() if n==query_name}
+    print("{:.2f}".format(sum(a1[query_name])/len(a1[query_name])))
+
+## 
