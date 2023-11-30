@@ -337,4 +337,197 @@ if __name__ == '__main__':
     a1 = {n:s for (n,s) in student_marks.items() if n==query_name}
     print("{:.2f}".format(sum(a1[query_name])/len(a1[query_name])))
 
-## 
+##Tuples
+# Objective : Using hash function (built in function), find the hash of tuple given 
+# Conditions : Only work on Pypy3 
+if __name__ == '__main__':
+    #input
+    n = int(input())
+    #list of input
+    integer_list = map(int, input().split())
+    #make list as tuple   
+    tuple_list = tuple(integer_list)
+    print(hash(tuple_list))
+
+##sWAP cASE
+# Objective : convert lowercase to uppercase and vice versa in a string
+def swap_case(s):
+    #variable to store new string
+    new_string = ''
+    #looping thorugh character
+    for i in s:
+        #check is it in lowercase
+        if i.islower() == True :
+            #change to uppercase
+            new_string = new_string + i.upper()
+        #check is it in uppercase
+        elif i.isupper() == True :
+            #change to lowercase
+            new_string = new_string + i.lower()
+        else : 
+            #just let character as it is
+            new_string = new_string + i
+    return new_string
+    
+##Text Wrap 
+# Objective : Given string S and width w, wrap the sting into paragraph of width w
+# Example : 
+# S = abcdefgh
+# w = 2 
+# Desired output : 
+# ab
+# cd
+# ef
+# gh
+def wrap(string, max_width):
+    n=len(string)
+    #for index which is helpful
+    i=0
+    #check if width is still more than string length
+    while n > max_width:
+        #print the desired output
+        print(string[i:max_width+i])
+        #to make string smaller
+        n=n-max_width
+        #moving the index to new location
+        i=i+max_width
+        #check if remain strings length is less than width
+        if n < max_width:
+            #print remain strings
+            return(string[i:])
+        
+##Lists 
+# Objective : Do some operations on the list
+# Conditions : Elements added must be integer
+if __name__ == '__main__':
+    #initialize N
+    N = int(input())
+    #ans list
+    ans = []
+    #looping until N commands
+    for i in range(N):
+        k = input().split()
+        #matching the command
+        match(k[0]):
+            case "insert":
+                ans.insert(int(k[1]), int(k[2]))
+            case "print":
+                print(ans)
+            case "remove":
+                ans.remove(int(k[1]))
+            case "append":
+                ans.append(int(k[1]))
+            case "sort":
+                ans.sort()
+            case "pop":
+                ans.pop()
+            case "reverse":
+                ans.reverse()
+                
+##String split and join
+# Objective : Given a string, split the string on a " " (space) delimiter and join using a - hyphen.
+def split_and_join(line):
+    #split first and then join
+    return "-".join(line.split(" "))
+      
+if __name__ == '__main__':
+    line = input()
+    result = split_and_join(line)
+    print(result)
+    
+##What's your name?
+# Objective : Given first and last name, print the first and last name in desired format
+def print_full_name(first, last):
+    #using string format
+    print("Hello {0} {1}! You just delved into python.".format(first, last))
+
+if __name__ == '__main__':
+    first_name = input()
+    last_name = input()
+    print_full_name(first_name, last_name)
+
+##Mutations
+# Objective : Given a string, change the character at a given index and then print the modified string
+def mutate_string(string, position, character):
+    return string[:position] + character + string[position+1:]
+
+if __name__ == '__main__':
+    s = input()
+    i, c = input().split()
+    s_new = mutate_string(s, int(i), c)
+    print(s_new)
+    
+##Find a string
+# Objective : Find how many substring present in a string
+def count_substring(string, sub_string):
+    #variables for count
+    cnt = 0
+    #looping through string
+    for i in range(0, len(string)):
+        #check if the part of string equal to sub_string
+        if string[i:len(sub_string)+i] == sub_string:
+            cnt += 1
+        else : cnt += 0
+    return cnt
+    
+if __name__ == '__main__':
+    string = input().strip()
+    sub_string = input().strip()
+    
+    count = count_substring(string, sub_string)
+    print(count)
+    
+##String Validators
+# Objective : Given a string, check if the sring contain alphanumeric, alphabetical, digits, lowercase and uppercase characters.
+if __name__ == '__main__':
+    s = input()
+    #using list comprehension to check every element
+    print(True if True in [True for x in s if x.isalnum()] else False)
+    print(True if True in [True for x in s if x.isalpha()] else False)
+    print(True if True in [True for x in s if x.isdigit()] else False)
+    print(True if True in [True for x in s if x.islower()] else False)
+    print(True if True in [True for x in s if x.isupper()] else False)
+    
+##Text Alignment
+# Objective : Replace __ (blank) with rjust/ljust/center to make logo
+thickness = int(input()) #This must be an odd number
+c = 'H'
+
+#Top Cone
+for i in range(thickness):
+    print((c*i).rjust(thickness-1)+c+(c*i).ljust(thickness-1))
+
+#Top Pillars
+for i in range(thickness+1):
+    print((c*thickness).center(thickness*2)+(c*thickness).center(thickness*6))
+
+#Middle Belt
+for i in range((thickness+1)//2):
+    print((c*thickness*5).center(thickness*6))    
+
+#Bottom Pillars
+for i in range(thickness+1):
+    print((c*thickness).center(thickness*2)+(c*thickness).center(thickness*6))    
+
+#Bottom Cone
+for i in range(thickness):
+    print(((c*(thickness-i-1)).rjust(thickness)+c+(c*(thickness-i-1)).ljust(thickness)).rjust(thickness*6))
+
+
+##String Formatting
+# Objective : Given n, print the decimal, octal, hexadecimal (cappitalized), binary of each value from 1 to n
+def print_formatted(n):
+    for i in range(1, n+1):
+        print(i, int(oct(i)), hex(i), bin(i))
+#testing 
+print_formatted(4)
+
+##Capitalize!
+# Objective : Capitalize first letter of first and last name
+def solve(s):
+    name = []
+    for i in range(len(s.split())) :
+        name.append(s.split()[i].capitalize())
+    return " ".join(name)
+#testing 
+solve('hello  world  lol')
